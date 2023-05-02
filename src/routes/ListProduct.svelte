@@ -1,0 +1,109 @@
+<script>
+  import { fetchProducts, products } from "./ListProduct.js";
+
+  $: promise = fetchProducts();
+</script>
+
+{#await promise}
+  <p>Cargando</p> 
+{:then results} 
+  {#each $products as prod}
+    <section class="chacharas">
+      <a href={"/product?id=" + prod.id}>
+
+    	<div class="product">
+    		<div class="display">
+    			<img src={prod.imageUrl} alt="Imagen del producto">
+    		</div>
+      
+    		<p class="name-product">{prod.name}</p>
+    		<div class="precie-product">
+    			<p class="inline sale-product">${prod.price}</p>
+    			<p class="inline disc-product">${prod.price}</p>
+    		</div>
+    	</div>
+
+      </a>
+    </section>
+  {/each}
+{:catch error}
+  <h1>Ups </h1>
+{/await}
+
+<style>
+  section.chacharas{
+		display: grid;
+		margin: 0 auto;
+		grid-template-columns: repeat(4,200px);
+		gap: 10px;
+	}
+
+	.precie-product{
+		padding-left: 0.5em;
+	}
+
+	.disc-product{
+		color: #928989;
+		text-decoration: line-through;
+	}
+
+	.inline{
+		display: inline;
+	}
+
+	.name-product{
+		margin: 0.2em 0.5em;
+		font-weight: bold;
+	}
+
+	.display{
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		background-color: #5f6b91;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 180px
+	}
+
+	.display img{
+		width: 160px;
+		height: 160px;
+		background-color: white;
+		object-fit: cover;
+		transition: transform 0.2s;
+	}
+	
+	.display img:hover{
+		transform: scale(1.05);
+	}
+
+	.product{
+		background-color: white;
+		border-radius: 10px;
+		width: 200px;
+		height: 250px;
+		box-shadow: none;
+		transition: padding 0.2s, box-shadow 0.2s;
+	}
+
+	.product:hover{
+		cursor: pointer;
+		margin-top: 2px;
+		margin-left: 3px;
+		padding: 4px;
+		box-shadow: -4px 0px 5px 1px #0000002a;
+	}
+
+	@media (max-width: 656px){
+		section.chacharas{
+			grid-template-columns: repeat(2,200px);
+		}
+	}
+
+	@media (min-width: 656px) and (max-width: 955px){
+		section.chacharas{
+			grid-template-columns: repeat(3,200px);
+		}
+	}
+</style>
