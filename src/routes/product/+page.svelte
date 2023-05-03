@@ -3,6 +3,8 @@
   import ListProduct from "../ListProduct.svelte";
   import { fetchProduct, product } from "./products.js";
   import { page } from "$app/stores";
+  import error_icon from "$lib/images/error_icon.png";
+  import load_icon from "$lib/images/loading.gif";
 
 
   const id = $page.url.searchParams.get('id');
@@ -20,20 +22,59 @@
   {/await}
 </svelte:head>
 
+{#await promise}
+
 <div class="product">
   <div class="product-img">
-    <img src="https://cdn-icons-png.flaticon.com/512/0/568.png" alt="searching">
+    <img src={load_icon} alt="searching">
   </div>
   <div class="product-info">
     <h2>Producto</h2> 
     <p class="star"> ★ ★ ★ ★ ★</p>
     <div class="product-price">
-      <p class="price-real">346 MXN$</p>
-      <p class="price-fake">546 MXN$ <p class="label-fake">70% descuento</p>
+      <p class="price-real">000 MXN$</p>
+      <p class="price-fake">000 MXN$ <p class="label-fake">00% descuento</p>
     </div>
-    <button>Comprar</button>
+    <button class="buy-button">Esperando...</button>
   </div>
 </div>
+
+{:then results}
+
+<div class="product">
+  <div class="product-img">
+    <img src={$product.imageUrl} alt="Product's imagen">
+  </div>
+  <div class="product-info">
+    <h2>{$product.name}</h2> 
+    <p class="star"> ★ ★ ★ ★ ★</p>
+    <div class="product-price">
+      <p class="price-real">{$product.price} MXN$</p>
+      <p class="price-fake">{($product.price / 0.3).toFixed(2)} MXN$ <p class="label-fake">70% descuento</p>
+    </div>
+    <button class="buy-button">Comprar</button>
+  </div>
+</div>
+
+{:catch error}
+
+<div class="product">
+  <div class="product-img">
+    <img src={error_icon} alt="Product's imagen">
+  </div>
+  <div class="product-info">
+    <h2>{error}</h2> 
+    <p class="star"> ★ ★ ★ ★ ★</p>
+    <div class="product-price">
+      <p class="price-real">{$product.price} MXN$</p>
+      <p class="price-fake">{$product.price / 0.3} MXN$ <p class="label-fake">70% descuento</p>
+    </div>
+    <button class="buy-button">ERROR</button>
+  </div>
+</div>
+
+{/await}
+
 
 <ListProduct />
 
@@ -71,6 +112,19 @@
     font-size: 1.2rem;
     margin-left: 10px;
     color: #df3923;
+  }
+
+  .buy-button{
+    width: 200px;
+    height: 50px;
+    margin-top: 40px;
+    color: white;
+    border: 1px solid #ca1a0d;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(20deg,rgb(216, 57, 57),rgb(236, 153, 76));
   }
 
   .price-real, .price-fake{
@@ -115,6 +169,6 @@
     width: 200px;
     height: 200px;
     object-fit: cover;
-    background-color: blue;
+    background-color: white;
   }
 </style>

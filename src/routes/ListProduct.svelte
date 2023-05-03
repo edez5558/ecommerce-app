@@ -5,7 +5,9 @@
 </script>
 
 {#await promise}
-  <p>Cargando</p> 
+  <div class="chacharas-loading">
+
+	</div> 
 {:then results} 
   {#each $products as prod}
     <section class="chacharas">
@@ -19,7 +21,7 @@
     		<p class="name-product">{prod.name}</p>
     		<div class="precie-product">
     			<p class="inline sale-product">${prod.price}</p>
-    			<p class="inline disc-product">${prod.price}</p>
+    			<p class="inline disc-product">${(prod.price / 0.3).toFixed(2)}</p>
     		</div>
     	</div>
 
@@ -37,13 +39,20 @@
 		grid-template-columns: repeat(4,200px);
 		gap: 10px;
 	}
+	
+	a{
+		text-decoration: none;
+		color: black;
+	}
 
 	.precie-product{
 		padding-left: 0.5em;
+		font-size: 1rem;
 	}
 
 	.disc-product{
 		color: #928989;
+		font-size: 0.9rem;
 		text-decoration: line-through;
 	}
 
