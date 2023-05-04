@@ -6,39 +6,41 @@
 
 {#await promise}
   <div class="chacharas-loading">
-
+		<div class="gray-display"></div>
+		<div class="gray-display"></div>
+		<div class="gray-display"></div>
+		<div class="gray-display"></div>
 	</div> 
 {:then results} 
-  {#each $products as prod}
     <section class="chacharas">
+  		{#each $products as prod}
       <a href={"/product?id=" + prod.id}>
-
-    	<div class="product">
-    		<div class="display">
-    			<img src={prod.imageUrl} alt="Imagen del producto">
+    		<div class="product">
+    			<div class="display">
+    				<img src={prod.imageUrl} alt="Imagen del producto">
+    			</div>
+				
+    			<p class="name-product">{prod.name}</p>
+    			<div class="precie-product">
+    				<p class="inline sale-product">${prod.price}</p>
+    				<p class="inline disc-product">${(prod.price / 0.3).toFixed(2)}</p>
+    			</div>
     		</div>
-      
-    		<p class="name-product">{prod.name}</p>
-    		<div class="precie-product">
-    			<p class="inline sale-product">${prod.price}</p>
-    			<p class="inline disc-product">${(prod.price / 0.3).toFixed(2)}</p>
-    		</div>
-    	</div>
-
       </a>
+  		{/each}
     </section>
-  {/each}
 {:catch error}
   <h1>Ups </h1>
 {/await}
 
 <style>
-  section.chacharas{
+  section.chacharas, .chacharas-loading{
 		display: grid;
 		margin: 0 auto;
 		grid-template-columns: repeat(4,200px);
 		gap: 10px;
 	}
+
 	
 	a{
 		text-decoration: none;
@@ -87,13 +89,20 @@
 		transform: scale(1.05);
 	}
 
-	.product{
+	.product, .gray-display{
 		background-color: white;
 		border-radius: 10px;
 		width: 200px;
 		height: 250px;
 		box-shadow: none;
 		transition: padding 0.2s, box-shadow 0.2s;
+	}
+
+	.gray-display{
+		background-color: #5c5956;
+		transform: translateY(-30px);
+		animation: 1.5s infinite alternate loading-list;
+		animation-timing-function: linear;
 	}
 
 	.product:hover{
@@ -104,6 +113,18 @@
 		box-shadow: -4px 0px 5px 1px #0000002a;
 	}
 
+	.gray-display:nth-child(2){
+		animation-delay: 0.5s;
+	}
+
+	.gray-display:nth-child(3){
+		animation-delay: 1s;
+	}
+
+	.gray-display:nth-child(4){
+		animation-delay: 1.5s;
+	}
+
 	@media (max-width: 656px){
 		section.chacharas{
 			grid-template-columns: repeat(2,200px);
@@ -111,8 +132,24 @@
 	}
 
 	@media (min-width: 656px) and (max-width: 955px){
-		section.chacharas{
+		section.chacharas, .chacharas-loading{
 			grid-template-columns: repeat(3,200px);
+		}
+	}
+
+	@keyframes loading-list{
+		from {
+			transform: translateY(-30px);
+			opacity: 1;
+		}
+
+		50%{
+			opacity: 0.2;
+		}
+
+		to{
+			transform: translateY(30px);
+			opacity: 1;
 		}
 	}
 </style>
