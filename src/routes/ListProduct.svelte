@@ -1,7 +1,9 @@
 <script>
+    import { onMount } from "svelte";
   import { fetchProducts, products } from "./ListProduct.js";
 
   $: promise = fetchProducts();
+  
 </script>
 
 {#await promise}
@@ -14,7 +16,7 @@
 {:then results} 
     <section class="chacharas">
   		{#each $products as prod}
-      <a href={"/product?id=" + prod.id}>
+      <a href={"/product?id=" + prod.id} target="_self">
     		<div class="product">
     			<div class="display">
     				<img src={prod.imageUrl} alt="Imagen del producto">

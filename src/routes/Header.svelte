@@ -6,7 +6,7 @@
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
+		<a href="/">
 			<img src={logo} alt="SvelteKit" />
 			<p> Pir-Ata.com</p>
 		</a>
@@ -30,7 +30,7 @@
 	</nav>
 
 	<div class="corner">
-		<a href="./">
+		<a href="/account">
 			<img src={profile} alt="profile" />
 		</a>
 	</div>

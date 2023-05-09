@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
   import ListProduct from "../ListProduct.svelte";
-  import { fetchProduct, product } from "./products.js";
+  import { fetchProduct, product, seller } from "./products.js";
   import { page } from "$app/stores";
   import error_icon from "$lib/images/error_icon.png";
   import load_icon from "$lib/images/loading.gif";
@@ -47,11 +47,15 @@
   </div>
   <div class="product-info">
     <h2>{$product.name}</h2> 
+    <p class="seller">Vendedor: {$seller}</p>
     <p class="star"> ★ ★ ★ ★ ★</p>
     <div class="product-price">
       <p class="price-real">{$product.price} MXN$</p>
       <p class="price-fake">{($product.price / 0.3).toFixed(2)} MXN$ <p class="label-fake">70% descuento</p>
     </div>
+
+    <textarea rows="5" disabled="true">{$product.description}</textarea>
+
     <button class="buy-button">Comprar</button>
   </div>
 </div>
@@ -85,6 +89,7 @@
     margin-top: 50px;
   }
 
+
   .product{
     display: flex;
     flex-direction: row;
@@ -92,7 +97,7 @@
     margin-bottom: 50px;
     border-radius: 15px;
     width: 1000px;
-    height: 350px;
+    height: 400px;
     box-shadow: 0px 0px 4px 5px #0000002d;
   }
 
@@ -110,14 +115,19 @@
 
   .star{
     font-size: 1.2rem;
+    margin: 0;
     margin-left: 10px;
     color: #df3923;
+  }
+
+  .seller{
+    margin: 5px 0;
   }
 
   .buy-button{
     width: 200px;
     height: 50px;
-    margin-top: 40px;
+    margin-top: 20px;
     color: white;
     border: 1px solid #ca1a0d;
     border-radius: 10px;
@@ -125,6 +135,10 @@
     font-weight: bold;
     cursor: pointer;
     background: linear-gradient(20deg,rgb(216, 57, 57),rgb(236, 153, 76));
+  }
+
+  textarea{
+    margin-top: 15px;
   }
 
   .price-real, .price-fake{
