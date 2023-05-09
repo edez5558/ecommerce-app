@@ -5,11 +5,45 @@
   import { page } from "$app/stores";
   import error_icon from "$lib/images/error_icon.png";
   import load_icon from "$lib/images/loading.gif";
+    import Dialog from "../prefab/Dialog.svelte";
 
 
   const id = $page.url.searchParams.get('id');
   
   $: promise = fetchProduct(id);
+  
+  let amount = 1;
+  let message = '';
+  let registro = false;
+
+  async function buyProduct(){
+    const sessionId = localStorage.getItem("sessionId");
+    const clientId = localStorage.getItem("clientId");
+
+
+    if(sessionId == null || clientId == null){
+      message = 'No estas logeado';
+      registro = true;
+      return;
+    }
+
+    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/product/buy",{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({clientId : clientId, productId : id, amount : amount, sessionId : sessionId})
+    });
+
+    if(!response.ok){
+      message = 'Error al realizar la peticion';
+      registro = true;
+      return;
+    }
+
+    message = (await response.text()).replaceAll('"','');
+    registro = true;
+  }
 </script>
 
 <svelte:head>
@@ -41,6 +75,10 @@
 
 {:then results}
 
+<Dialog message={message} visible={registro} onOkClicked={() => {
+  location.reload();
+}}/>
+
 <div class="product">
   <div class="product-img">
     <img src={$product.imageUrl} alt="Product's imagen">
@@ -56,7 +94,11 @@
 
     <textarea rows="5" disabled="true">{$product.description}</textarea>
 
-    <button class="buy-button">Comprar</button>
+    <div class="buy">
+      <p>{`Disponibles: ${$product.stock}`}</p>
+      <input class="input-stock" type="number" min="1" max={$product.stock} step="1" bind:value="{amount}" placeholder="2" pattern="[0-9]+" required>
+      <button on:click={buyProduct} class="buy-button">Comprar</button>
+    </div>
   </div>
 </div>
 
@@ -83,6 +125,9 @@
 <ListProduct />
 
 <style>
+  .buy p{
+    margin: 0;
+  }
   h2{
     font-size: 1.5rem;
     margin: 0;
@@ -185,4 +230,16 @@
     object-fit: cover;
     background-color: white;
   }
+
+  @media (max-width: 840px){
+		.product{
+      width: 600px;
+		}
+	}
+
+	@media (min-width: 840px) and (max-width: 1050px){
+		.product{
+      width: 800px;
+		}
+	}
 </style>

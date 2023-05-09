@@ -6,7 +6,7 @@
 
 <div class="news">
   <div class="category">
-    <h2>Categoria</h2>
+    <h2>Categoria (No sirve)</h2>
     <ul>
       <li>Moda Mujer</li>
       <li>Moda Hombre</li>
@@ -21,11 +21,14 @@
   </div>
   <div class="offer">
     <h1>Oferta de hoy</h1>
-    <img src={zanahoria} alt="oferta del dia">
+    <p>Ninguna</p>
   </div>
 </div>
 
 <style>
+  .offer p{
+    text-align: center;
+  }
   .news{
     display: flex;
     flex-direction: row;
@@ -74,4 +77,16 @@
     height: 100%;
     background-color: white;
   }
+
+  @media (max-width: 840px){
+		.news{
+      width: 600px;
+		}
+	}
+
+	@media (min-width: 840px) and (max-width: 1050px){
+		.news{
+      width: 800px;
+		}
+	}
 </style>

@@ -12,5 +12,6 @@ export const fetchProduct = async (/** @type {string} */ id) => {
     const dataName = await responseName.text();
 
     seller.set(dataName.replaceAll('"',''));
+    console.log(data);
     product.set(data);
 }

@@ -50,30 +50,60 @@
 <main>
   <h1>Cuenta</h1>
 
-  <button on:click={unlogin}>Salir de cuenta</button>
-
-  <button on:click={() => {location.href = '/form/product'}}>
-    Publicar
-  </button>
+  <div class="buttons">
+    <button on:click={unlogin}>Salir de cuenta</button>
+    <button on:click={() => {location.href = '/form/product'}}>
+      Publicar
+    </button>
+  </div>
 
   <section>
     <h2>Ventas</h2>
+
+    {#if user}
+      <p class="nombre">{user.name}</p>
+
+      {#each user.products as p}
+       <Sale product={p} />
+      {/each}
+    {:else}
+      <p>Loading</p>
+    {/if}
+
   </section>
-
-  {#if user}
-    <p >{user.name}</p>
-
-    {#each user.products as p}
-     <Sale product={p} />
-    {/each}
-  {:else}
-    <p>Loading</p>
-  {/if}
 
   <p></p>
 </main>
 
 <style>
+  main{
+    display: flex;
+    flex-direction: column;
+  }
+  h2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
+  }
+
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  section{
+    background-color: white;
+    padding: 0px 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+  }
+
+  .nombre{
+    font-size: 2rem;
+    text-align: center;
+  }
+
   button{
     width: 200px;
     height: 50px;

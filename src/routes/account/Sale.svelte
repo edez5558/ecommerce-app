@@ -29,6 +29,7 @@
     align-items: center;
     padding: 0 70px;
   }
+
   h3{
     text-align: center;
     font-weight: bold;
@@ -39,6 +40,7 @@
     flex-direction: row;
     background-color: red;
     margin: 20px 0;
+		box-shadow: 0px 0px 5px 4px #0000002a;
   }
 
   .sale-img{
@@ -48,7 +50,7 @@
     justify-content: center;
 
     width: 200px;
-    background-color: blue;
+    background-color: #5f6b91;  
   }
 
   .sale-img img{
