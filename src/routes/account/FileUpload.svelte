@@ -1,7 +1,8 @@
 <script>
+    import { API_URL } from "../config";
+
 // @ts-nocheck
 
-  // @ts-ignore
   let file;
 
   const handleFileInput = (/** @type {{ target: { files: (string | Blob)[]; }; }} */ event) => {
@@ -12,7 +13,7 @@
     const formData = new FormData();
     // @ts-ignore
     formData.append('file', file);
-    const response = await fetch('https://pira-ata-com-api-rest.onrender.com/api/file/upload', {
+    const response = await fetch(`${API_URL}/api/file/upload`, {
       method: 'POST',
       body: formData
     });

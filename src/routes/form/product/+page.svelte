@@ -7,6 +7,7 @@
   import imgWaiting from '$lib/images/img-noselect.png';
   import { page } from "$app/stores";
     import { onMount } from 'svelte';
+    import { API_URL } from '../../config';
 
   let registro = false;
   let message = '';
@@ -29,7 +30,7 @@
     if(product.id == null)
       return;
 
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/api/product/get/" + product.id);
+    const response = await fetch(`${API_URL}/api/product/get/${product.id}`);
 
     if(!response.ok)
       return;
@@ -61,7 +62,7 @@
       return;
     }
     
-    const verifyResponse = await fetch("https://pira-ata-com-api-rest.onrender.com/api/user/session/verify",{
+    const verifyResponse = await fetch(`${API_URL}/api/user/session/verify`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
@@ -88,9 +89,9 @@
     const description = product.description;
     const imageUrl = product.imageUrl;
     const price = product.price;
-    const stock = product.price;
+    const stock = product.stock;
 
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/api/product/save",{
+    const response = await fetch(`${API_URL}/api/product/save`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
@@ -124,7 +125,7 @@
       return;
     }
 
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/api/product/update",{
+    const response = await fetch(`${API_URL}/api/product/update`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',

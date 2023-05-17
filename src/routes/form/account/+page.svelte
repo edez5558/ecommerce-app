@@ -1,23 +1,44 @@
 <script>
+    import { API_URL } from "../../config";
+    import Dialog from "../../prefab/Dialog.svelte";
+
   let username = '';
   let password = '';
   let name = '';
 
+  let visible_log = false;
+  let msg_log = '';
+
+  let botonHabilitado = true;
+
   async function signup(){
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/api/user/save",{
+    botonHabilitado = false;
+
+    const data = await fetch(`${API_URL}/api/user/save`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({username,name,password})
-    });
-
-    if(!response.ok)
+    }).then(response => {
+      if(response.headers.get('content-type')?.includes('application/json')){
+        return response.json();
+      }else{
+        return response.text();
+      }
+    }).catch(error => {
+      console.log(error);
       return;
+    })
+    
+    if(typeof data !== 'object'){
+      visible_log = true;
+      msg_log = data;
+      botonHabilitado = true;
+      return;
+    }
 
-    const data = await response.json();
-
-    const sessionResponse = await fetch("https://pira-ata-com-api-rest.onrender.com/api/user/session/new",
+    const sessionResponse = await fetch(`${API_URL}/api/user/session/new`,
     {
       method: 'POST',
       headers:{
@@ -34,12 +55,16 @@
     localStorage.setItem("sessionId",session.sessionId);
     localStorage.setItem("clientId",session.id);
 
+    botonHabilitado = true;
     location.href = '/';
   }
 </script>
 
-<main>
+<Dialog visible={visible_log} message={msg_log} onOkClicked={() => {
+  botonHabilitado = true;
+}}/>
 
+<main>
   <form on:submit|preventDefault="{signup}">
     <h1>Sign Up</h1>
 
@@ -52,7 +77,7 @@
     <label for="POST-password">Contraseña</label>
     <input class="input-text" id="POST-password" type="password" bind:value="{password}" required>
 
-    <button class="submit" type="submit">Sign up</button>
+    <button class="submit" type="submit" disabled={!botonHabilitado}>Sign up</button>
   </form>
 
 </main>

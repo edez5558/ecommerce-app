@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import Sale  from './Sale.svelte';
   import FileUpload from './FileUpload.svelte';
+  import { API_URL } from '../config';
 
 
   /**
@@ -18,7 +19,7 @@
     if(sessionId == null || clientId == null)
       location.href = '/form/login';
     
-    const verifyResponse = await fetch("https://pira-ata-com-api-rest.onrender.com/api/user/session/verify",{
+    const verifyResponse = await fetch(`${API_URL}/api/user/session/verify`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',

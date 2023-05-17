@@ -6,6 +6,7 @@
   import error_icon from "$lib/images/error_icon.png";
   import load_icon from "$lib/images/loading.gif";
     import Dialog from "../prefab/Dialog.svelte";
+    import { API_URL } from "../config";
 
 
   const id = $page.url.searchParams.get('id');
@@ -27,7 +28,7 @@
       return;
     }
 
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/product/buy",{
+    const response = await fetch(`${API_URL}/api/product/buy`,{
       method: 'POST',
       headers:{
         'Content-Type': 'application/json',
@@ -36,6 +37,7 @@
     });
 
     if(!response.ok){
+      console.log();
       message = 'Error al realizar la peticion';
       registro = true;
       return;

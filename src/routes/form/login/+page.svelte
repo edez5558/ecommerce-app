@@ -1,10 +1,12 @@
 
 <script>
+    import { API_URL } from "../../config";
+
   let username = '';
   let password = '';
 
   async function login(){
-    const response = await fetch("https://pira-ata-com-api-rest.onrender.com/api/user/session/new",
+    const response = await fetch(`${API_URL}/api/user/session/new`,
     {
       method: 'POST',
       headers:{
