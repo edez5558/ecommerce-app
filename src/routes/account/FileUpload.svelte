@@ -1,8 +1,11 @@
 <script>
+// @ts-nocheck
+
     import { API_URL } from "../config";
 
 // @ts-nocheck
 
+  // @ts-ignore
   let file;
 
   const handleFileInput = (/** @type {{ target: { files: (string | Blob)[]; }; }} */ event) => {
