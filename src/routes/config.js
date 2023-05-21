@@ -1,1 +1,1 @@
-export const API_URL = 'https://pira-ata-com-api-rest.onrender.com';
+export const API_URL = 'http://20.81.65.81:8080';
