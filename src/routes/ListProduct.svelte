@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
   import { fetchProducts, products } from "./ListProduct.js";
+    import CardProduct from "./CardProduct.svelte";
 
   $: promise = fetchProducts();
   
@@ -14,105 +15,59 @@
 		<div class="gray-display"></div>
 	</div> 
 {:then results} 
+  <div class="list-scrollable">
+    <button class="btn-left"></button>
     <section class="chacharas">
   		{#each $products as prod}
-      <a href={"/product?id=" + prod.id} target="_self">
-    		<div class="product">
-    			<div class="display">
-    				<img src={prod.imageUrl} alt="Imagen del producto">
-    			</div>
-				
-    			<p class="name-product">{prod.name}</p>
-    			<div class="precie-product">
-    				<p class="inline sale-product">${prod.price}</p>
-    				<p class="inline disc-product">${(prod.price / 0.3).toFixed(2)}</p>
-    			</div>
-    		</div>
-      </a>
+        <CardProduct product={prod}/>
   		{/each}
     </section>
+    <button class="btn-right"></button>
+  </div>
 {:catch error}
   <h1>Ups </h1>
 {/await}
 
 <style>
-  section.chacharas, .chacharas-loading{
-		display: grid;
-		margin: 0 auto;
+  .chacharas, .chacharas-loading{
+	  display: flex;
+    flex-direction: row;
+    padding: 20px 10px;
+
 		grid-template-columns: repeat(4,200px);
+
+    width: 840px;
+    height: 270px;
+    background-color: red;
 		gap: 10px;
 	}
 
-	
-	a{
-		text-decoration: none;
-		color: black;
-	}
+  .chacharas{
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+  }
 
-	.precie-product{
-		padding-left: 0.5em;
-		font-size: 1rem;
-	}
+  .list-scrollable{
+    display: flex;
+    flex-direction: row;
+  }
 
-	.disc-product{
-		color: #928989;
-		font-size: 0.9rem;
-		text-decoration: line-through;
-	}
-
-	.inline{
-		display: inline;
-	}
-
-	.name-product{
-		margin: 0.2em 0.5em;
-		font-weight: bold;
-	}
-
-	.display{
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-		background-color: #5f6b91;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 180px
-	}
-
-	.display img{
-		width: 160px;
-		height: 160px;
-		background-color: white;
-		object-fit: cover;
-		transition: transform 0.2s;
-	}
-	
-	.display img:hover{
-		transform: scale(1.05);
-	}
-
-	.product, .gray-display{
-		background-color: white;
-		border-radius: 10px;
-		width: 200px;
-		height: 250px;
-		box-shadow: none;
-		transition: padding 0.2s, box-shadow 0.2s;
-	}
+  .btn-left,.btn-right{
+    margin: 0;
+    height: 250px;
+    z-index: 10;
+  }
 
 	.gray-display{
 		background-color: #5c5956;
 		transform: translateY(-30px);
 		animation: 1.5s infinite alternate loading-list;
 		animation-timing-function: linear;
-	}
-
-	.product:hover{
-		cursor: pointer;
-		margin-top: 2px;
-		margin-left: 3px;
-		padding: 4px;
-		box-shadow: -4px 0px 5px 1px #0000002a;
+		border-radius: 10px;
+		width: 200px;
+		height: 250px;
+		box-shadow: none;
+		transition: padding 0.2s, box-shadow 0.2s;
 	}
 
 	.gray-display:nth-child(2){

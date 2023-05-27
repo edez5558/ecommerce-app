@@ -1,1 +1,1 @@
-export const API_URL = 'http://20.81.65.81:8080';
+export const API_URL = 'http://pirata.20.88.189.150.nip.io';
