@@ -12,16 +12,17 @@
 		</a>
 	</div>
 
+
 	<nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
 		<ul>
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Inicio</a>
+				<a class="small-font" href="/">Inicio</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">Acerca</a>
+			<li aria-current={$page.url.pathname === '/products/all?page=0' ? 'page' : undefined}>
+				<a  class="small-font" href="/products/all?page=0">Productos</a>
 			</li>
 		</ul>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
@@ -31,15 +32,21 @@
 
 	<div class="corner">
 		<a href="/account">
-			<img src={profile} alt="profile" />
+			<img src={profile} alt="profile" class="profile-img"/>
 		</a>
 	</div>
 </header>
 
 <style>
+
+	h2{
+		text-align: center;
+		background-color: red;
+	}
 	header {
 		display: flex;
 		justify-content: space-between;
+		width: 100vw;
 	}
 
 	.corner {
@@ -128,5 +135,23 @@
 
 	a:hover {
 		color: var(--color-theme-1);
+	}
+
+  @media (max-width: 500px){
+		a{
+			font-size: 10px;
+		}
+
+		.small-font{
+			font-size: 10px;
+		}
+
+		svg{
+			width: 0;
+			height: 0;
+			margin: 0;
+		}
+
+
 	}
 </style>

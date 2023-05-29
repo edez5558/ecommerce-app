@@ -3,16 +3,17 @@
   import ListProduct from './ListProduct.svelte';
 </script>
 
-
 <svelte:head>
 	<title>Pir-Ata</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<MainDisplay />
+<main>
+	<MainDisplay />
+	<ListProduct />
+</main>
 
-<ListProduct />
 
 <style>
-	
+
 </style>

@@ -117,4 +117,10 @@
     cursor: pointer;
     background: linear-gradient(20deg,rgb(216, 57, 57),rgb(236, 153, 76));
   }  
+
+  @media (max-width: 500px){
+    button{
+      width: 160px;
+    } 
+  }
 </style>

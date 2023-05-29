@@ -58,6 +58,8 @@
   {/await}
 </svelte:head>
 
+<main>
+
 {#await promise}
 
 <div class="product">
@@ -123,8 +125,9 @@
 
 {/await}
 
-
 <ListProduct />
+
+</main>
 
 <style>
   .buy p{
@@ -233,7 +236,16 @@
     background-color: white;
   }
 
-  @media (max-width: 840px){
+  @media (max-width: 500px){
+    .product{
+      width: 300px;
+      height: 670px;
+      flex-direction: column;
+    }
+
+  }
+
+  @media (max-width: 840px) and (min-width: 500px){
 		.product{
       width: 600px;
 		}

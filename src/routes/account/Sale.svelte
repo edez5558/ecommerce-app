@@ -38,7 +38,6 @@
   .sale{
     display: flex;
     flex-direction: row;
-    background-color: red;
     margin: 20px 0;
 		box-shadow: 0px 0px 5px 4px #0000002a;
   }
@@ -48,12 +47,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    align-self: center;
 
     width: 200px;
+    height: 200px;
+		object-fit: cover;
     background-color: #5f6b91;  
   }
 
-  .sale-img img{
+  img{
     width: 80%;
     height: 80%;
     object-fit: cover;
@@ -63,5 +65,11 @@
   .sale-info{
     flex: 1;
     background-color: white;
+  }
+
+  @media (max-width: 500px){
+    .sale{
+      flex-direction: column;
+    } 
   }
 </style>

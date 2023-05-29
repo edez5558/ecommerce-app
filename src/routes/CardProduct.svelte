@@ -1,7 +1,9 @@
 <script>
 // @ts-nocheck
 
-    export let product = {};
+  export let product = {};
+	export const height = 250;
+	export const width = 200;
 </script>
 
 <a href={"/product?id=" + product.id} target="_self">
@@ -19,6 +21,11 @@
 </a>
 
 <style>
+	:root{
+		--width: 200px;
+		--height: 250px;
+	}
+
 	.precie-product{
 		padding-left: 0.5em;
 		font-size: 1rem;
@@ -46,7 +53,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 180px
+		height: 180px;
 	}
 
 	.display img{
@@ -64,8 +71,8 @@
 	.product{
 		background-color: white;
 		border-radius: 10px;
-		width: 200px;
-		height: 250px;
+		width: var(--width);
+		height: var(--height);
 		box-shadow: none;
 		transition: padding 0.2s, box-shadow 0.2s;
 	}
@@ -81,6 +88,27 @@
 		margin-left: 3px;
 		padding: 4px;
 		box-shadow: -4px 0px 5px 1px #0000002a;
+	}
+
+	@media (max-width: 500px){
+		:root{
+			--width: 120px;
+			--height: 160px;
+		}
+
+		.display img{
+			width: 80px;
+			height: 80px;
+		}
+
+		.display{
+			height: 100px;
+		}
+
+		.product{
+			width: 120px;
+			height: 160px;
+		}
 	}
 
 </style>

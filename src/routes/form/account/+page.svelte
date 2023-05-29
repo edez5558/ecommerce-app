@@ -11,6 +11,17 @@
 
   let botonHabilitado = true;
 
+  function reloadPage(){
+    botonHabilitado = true;
+    location.reload();
+  }
+
+  function sucessCreate(){
+    location.href = '/';
+  }
+
+  let callback = reloadPage;
+
   async function signup(){
     botonHabilitado = false;
 
@@ -31,10 +42,11 @@
       return;
     })
     
-    if(typeof data !== 'object'){
+    if(typeof data !== 'object' && data != username){
       visible_log = true;
       msg_log = data;
       botonHabilitado = true;
+      callback = reloadPage;
       return;
     }
 
@@ -56,13 +68,14 @@
     localStorage.setItem("clientId",session.id);
 
     botonHabilitado = true;
-    location.href = '/';
+    visible_log = true;
+    msg_log = "cuenta creada exitosamente!";
+    callback = sucessCreate;
   }
+
 </script>
 
-<Dialog visible={visible_log} message={msg_log} onOkClicked={() => {
-  botonHabilitado = true;
-}}/>
+<Dialog visible={visible_log} message={msg_log} onOkClicked={callback} />
 
 <main>
   <form on:submit|preventDefault="{signup}">
@@ -140,4 +153,18 @@
     cursor: pointer;
   }
 
+  @media (max-width: 500px){
+    form{
+      width: 350px;
+      padding: 0 0;
+    }
+
+    h1{
+      width: 200px;
+    }
+
+    .input-text{
+      width: 300px;
+    }
+  }
 </style>
